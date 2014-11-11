@@ -11,7 +11,6 @@ return array(
 	|
 	*/
 	'key' => 'app_id',
-	'value' => 1, // Should come from other config for current client app
 
 	/*
 	|--------------------------------------------------------------------------
