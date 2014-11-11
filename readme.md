@@ -11,45 +11,47 @@ ActivityLog
 
 **Basic installation, service provider registration, and aliasing:**
 
-To install ActivityLog, make sure "woazala/activity-log-multi" has been added to Laravel 4's `composer.json` file.
+To install ActivityLog, make sure "mvpasarel/activity-log-saas" has been added to Laravel 4's `composer.json` file.
 
 	"require": {
-		"woazala/activity-log-multi": "dev-master"
+		"mvpasarel/activity-log-saas": "dev-master"
 	},
 
 Then run `php composer.phar update` from the command line. Composer will install the ActivityLog package. Now, all you have to do is register the service provider, set up ActivityLog's alias in `app/config/app.php`, Add this to the `providers` array:
 
-	'Woazala\ActivityLogMulti\ActivityLogMultiServiceProvider',
+	'Mvpasarel\ActivityLogSaaS\ActivityLogSaaSServiceProvider',
 
 And add this to the `aliases` array:
 
-	'Activity' => 'Woazala\ActivityLogMulti\Activity',
+	'Activity' => 'Mvpasarel\ActivityLogSaaS\Activity',
 
 **Run the migrations and seed the database:**
 
 To run the database migrations (a single DB table), run the following from the command line:
 
-	php artisan migrate --package=woazala/activity-log-multi
+	php artisan migrate --package=mvpasarel/activity-log-saas
 
 **Publishing config file:**
 
 If you wish to customize the configuration of ActivityLog, you will need to publish the config file. Run this from the command line:
 
-	php artisan config:publish woazala/activity-log-multi
+	php artisan config:publish mvpasarel/activity-log-saas
 
-You will now be able to edit the config file in `app/config/packages/woazala/activity-log-multi`.
+You will now be able to edit the config file in `app/config/packages/mvpasarel/activity-log-saas`.
 
 <a name="basic-usage"></a>
 ## Basic Usage
 
 **Logging user activity:**
 
-	Activity::log(array(
-		'contentID'   => $user->id,
+	Activity::log([
+		'userID' => Sentry::getUser()->id,
+		'contentID' => $userId,
 		'contentType' => 'User',
-		'description' => 'Created a User',
-		'details'     => 'Username: '.$user->username,
-		'updated'     => $id ? true : false,
-	));
+		'action' => UserObserver::ACTION_LOGGEDIN,
+		'description' => UserObserver::ACTION_LOGGEDIN,
+		'details' => '',
+		'updated' => true,
+    ]);
 
 The above code will log an activity for the currently logged in user. The IP address will automatically be saved as well and the "developer" flag will be set if the user has a "developer" session variable set to true. This can be used to differentiate activities between the developer and the website administrator.

@@ -12,10 +12,10 @@ class CreateActivityLogTable extends Migration {
      */
     public function up()
     {
-        Schema::create('activity_log', function(Blueprint $table)
+        Schema::create('activity_logs', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer(Config::get('activity-log-multi::key'));
+            $table->integer(Config::get('activity-log-saas::key'));
             $table->integer('user_id');
             $table->integer('content_id');
             $table->string('content_type', 72);
@@ -28,7 +28,7 @@ class CreateActivityLogTable extends Migration {
             $table->timestamps();
         });
 
-        Schema::table('activity_log', function($table)
+        Schema::table('activity_logs', function($table)
         {
 
             // We'll need to ensure that MySQL uses the InnoDB engine to
@@ -50,7 +50,7 @@ class CreateActivityLogTable extends Migration {
      */
     public function down()
     {
-        Schema::drop('activity_log');
+        Schema::drop('activity_logs');
     }
 
 }

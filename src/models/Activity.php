@@ -1,20 +1,20 @@
-<?php namespace Woazala\ActivityLogMulti;
+<?php namespace Mvpasarel\ActivityLogSaaS;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 
-class Activity extends Eloquent {
+class Activity extends Model {
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'activity_log';
+    protected $table = 'activity_logs';
 
     /**
      * Get the user that the activity belongs to.
@@ -42,8 +42,8 @@ class Activity extends Eloquent {
             $data['userID'] = isset($user->id) ? $user->id : 0;
         }
 
-        $appKey = Config::get('activity-log-multi::key');
-        $appValue = Config::get('activity-log-multi::value');
+        $appKey = Config::get('activity-log-saas::key');
+        $appValue = Config::get('activity-log-saas::value');
 
         $activity = new static;
         $activity->user_id      = isset($data['userID'])   ? $data['userID']   : 0;
@@ -83,16 +83,16 @@ class Activity extends Eloquent {
     public function getName()
     {
         if (!(bool) $this->developer) {
-            return Config::get('activity-log-multi::developerName');
+            return Config::get('activity-log-saas::developerName');
         } else {
             $user = $this->user;
             if (empty($user))
                 return "Unknown User";
 
-            if (Config::get('activity-log-multi::usernameAsName')) {
+            if (Config::get('activity-log-saas::usernameAsName')) {
                 return $user->username;
             } else {
-                if (Config::get('activity-log-multi::fullNameLastNameFirst')) {
+                if (Config::get('activity-log-saas::fullNameLastNameFirst')) {
                     return $user->last_name.', '.$user->first_name;
                 } else {
                     return $user->first_name.' '.$user->last_name;

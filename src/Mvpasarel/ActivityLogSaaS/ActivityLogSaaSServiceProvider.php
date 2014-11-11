@@ -1,8 +1,8 @@
-<?php namespace Woazala\ActivityLogMulti;
+<?php namespace Mvpasarel\ActivityLogSaaS;
 
 use Illuminate\Support\ServiceProvider;
 
-class ActivityLogMultiServiceProvider extends ServiceProvider {
+class ActivityLogSaaSServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,7 +18,7 @@ class ActivityLogMultiServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('woazala/activity-log-multi');
+		$this->package('mvpasarel/activity-log-saas');
 	}
 
 	/**
@@ -38,7 +38,7 @@ class ActivityLogMultiServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return [];
 	}
 
 }
