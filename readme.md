@@ -11,10 +11,10 @@ ActivityLog
 
 **Basic installation, service provider registration, and aliasing:**
 
-To install ActivityLog, make sure "mvpasarel/activity-log-saas" has been added to Laravel 4's `composer.json` file.
+To install ActivityLog, make sure "mvpasarel/activity-log-saas" has been added to Laravel 5's `composer.json` file.
 
 	"require": {
-		"mvpasarel/activity-log-saas": "dev-master"
+		"mvpasarel/activity-log-saas": "dev-develop"
 	},
 
 Then run `php composer.phar update` from the command line. Composer will install the ActivityLog package. Now, all you have to do is register the service provider, set up ActivityLog's alias in `app/config/app.php`, Add this to the `providers` array:
@@ -25,17 +25,20 @@ And add this to the `aliases` array:
 
 	'Activity' => 'Mvpasarel\ActivityLogSaaS\Activity',
 
-**Run the migrations and seed the database:**
-
-To run the database migrations (a single DB table), run the following from the command line:
-
-	php artisan migrate --package=mvpasarel/activity-log-saas
 
 **Publishing config file:**
 
 If you wish to customize the configuration of ActivityLog, you will need to publish the config file. Run this from the command line:
 
-	php artisan config:publish mvpasarel/activity-log-saas
+	 php artisan publish:config mvpasarel/activity-log-saas
+	 
+Change the multi tenacity key from *app_id* to whatever your application's.
+	 
+**Run the migrations and seed the database:**
+
+To run the database migrations (a single DB table), run the following from the command line:
+
+	php artisan migrate --package=mvpasarel/activity-log-saas
 
 You will now be able to edit the config file in `app/config/packages/mvpasarel/activity-log-saas`.
 
