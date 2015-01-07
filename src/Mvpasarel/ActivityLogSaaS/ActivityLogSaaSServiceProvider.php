@@ -18,7 +18,7 @@ class ActivityLogSaaSServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('mvpasarel/activity-log-saas');
+		$this->app['config']->set('activity-log-saas', require __DIR__ . '/../../config/config.php');
 	}
 
 	/**

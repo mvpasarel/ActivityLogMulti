@@ -15,7 +15,7 @@ class CreateActivityLogTable extends Migration {
         Schema::create('activity_logs', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer(Config::get('activity-log-saas::key'));
+            $table->integer(Config::get('activity-log-saas.key'));
             $table->integer('user_id');
             $table->integer('content_id');
             $table->string('content_type', 72);

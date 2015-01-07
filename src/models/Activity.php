@@ -43,7 +43,7 @@ class Activity extends Model
             $data['userID'] = isset($user->id) ? $user->id : 0;
         }
 
-        $appKey = Config::get('activity-log-saas::key');
+        $appKey = Config::get('activity-log-saas.key');
 
         $activity = new static;
         $activity->user_id = isset($data['userID']) ? $data['userID'] : 0;
@@ -83,16 +83,16 @@ class Activity extends Model
     public function getName()
     {
         if (!(bool)$this->developer) {
-            return Config::get('activity-log-saas::developerName');
+            return Config::get('activity-log-saas.developerName');
         } else {
             $user = $this->user;
             if (empty($user))
                 return "Unknown User";
 
-            if (Config::get('activity-log-saas::usernameAsName')) {
+            if (Config::get('activity-log-saas.usernameAsName')) {
                 return $user->username;
             } else {
-                if (Config::get('activity-log-saas::fullNameLastNameFirst')) {
+                if (Config::get('activity-log-saas.fullNameLastNameFirst')) {
                     return $user->last_name . ', ' . $user->first_name;
                 } else {
                     return $user->first_name . ' ' . $user->last_name;
