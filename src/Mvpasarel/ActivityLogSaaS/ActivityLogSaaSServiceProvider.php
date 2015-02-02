@@ -18,7 +18,10 @@ class ActivityLogSaaSServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->app['config']->set('activity-log-saas', require __DIR__ . '/../../config/config.php');
+        $this->publishes([
+            __DIR__.'/../../migrations' => base_path('database/migrations'),
+            __DIR__.'/../../config/config.php' => config_path('activity-logger.php'),
+        ]);
 	}
 
 	/**
@@ -28,7 +31,9 @@ class ActivityLogSaaSServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/config.php', 'activity-logger'
+        );
 	}
 
 	/**
